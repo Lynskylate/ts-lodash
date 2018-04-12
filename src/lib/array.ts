@@ -50,3 +50,48 @@ export function difference<T>(arr: ArrayLike<T> | null | undefined,
     })
     return diff
 }
+
+export function drop<T>(arr: Array<T> | null | undefined, n?: number | undefined): Array<T> {
+    if (arr === null || typeof arr === 'undefined') return []
+    if (typeof n === 'undefined') n = 1
+    let copy_arry: Array<T> = deepCopy(arr)
+    return copy_arry.splice(n)
+}
+
+export function  dropRight<T>(arr: Array<T>, n?:number){
+    if (arr === null || typeof arr === 'undefined') return []
+    if (typeof n === 'undefined') n = 1
+    let copy_arry: Array<T> = deepCopy(arr)
+    for(let i=0;i<n;i++){
+        copy_arry.pop()
+    }
+    return copy_arry
+}
+
+export function flatten(arr: Array<any>):Array<any>{
+    let res_array:Array<any> = []
+    let copy_arry = deepCopy(arr)
+    for(const i of copy_arry){
+        Array.isArray(i)?res_array.push(...i):res_array.push(i)
+    }
+    return res_array
+}
+
+export function flattenDeep(arr: Array<any>, result:Array<any> = []){
+    for(const i of arr){
+        Array.isArray(i)?flattenDeep(i, result):result.push(i)
+    }
+    return result
+}
+
+export function flattenDepth(arr: Array<any>, depth:number = 1, result: Array<any> = []){
+    if(depth < 0){
+        result.push(arr)
+        return
+    }
+
+    for(const i of arr){
+        Array.isArray(i)?flattenDepth(i, depth-1, result):result.push(i)
+    }
+    return result
+}
