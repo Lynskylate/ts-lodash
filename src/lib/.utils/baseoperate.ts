@@ -1,0 +1,1 @@
+// export function baseFlatten<T>(array:ArrayLike<T> | null | undefined, depth:number, )
